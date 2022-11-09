@@ -12,7 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   //controllers
   final _emailController = TextEditingController();
-  final _senhaController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   bool _showPassword = false;
 
@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
                     ),
               SizedBox(height: 10.0),
               TextField(
-                controller: _senhaController,
+                controller: _passwordController,
                 obscureText: _showPassword == false ? true : false,
                 autofocus: false,
                 keyboardType: TextInputType.emailAddress,
