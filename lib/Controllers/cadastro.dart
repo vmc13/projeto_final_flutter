@@ -1,4 +1,8 @@
+import 'package:final_project/Controllers/login.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../Views/home.dart';
 
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
@@ -11,9 +15,11 @@ class _CadastroState extends State<Cadastro> {
   final _nomeController = TextEditingController();
   final _emailController = TextEditingController();
   final _psController = TextEditingController();
+
   final _latitudeController = TextEditingController();
   final _longitudeController = TextEditingController();
-  //final _firebaseAuth = FirebaseAuth.instance;
+
+  final _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +97,7 @@ class _CadastroState extends State<Cadastro> {
             //botao para cadastrar usúario.
             ElevatedButton(
               onPressed: () {
-                //cadastrar();
+                cadastrar();
               },
               child: Text('CADASTRAR'),
               style: ButtonStyle(
@@ -105,5 +111,36 @@ class _CadastroState extends State<Cadastro> {
         ),
       ),
     );
+  }
+
+ cadastrar() async {
+    try {
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+              email: _emailController.text, password: _psController.text);
+      if (userCredential != null) {
+        userCredential.user!.updateDisplayName(_nomeController.text);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => Login()),
+            (route) => false);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Crie uma senha mas forte'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      } else if (e.code == 'email-already-in-use') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('este e-mail ja foi cadastrado, tente outro e-mail'),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
+    }
   }
 }

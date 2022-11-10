@@ -1,7 +1,11 @@
+
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'cadastro.dart';
+import '../Views/home.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -17,6 +21,18 @@ class _LoginState extends State<Login> {
   final _firebaseAuth = FirebaseAuth.instance;
 
   bool _showPassword = false;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user==null) {
+        print('Você não tem um usuário logado!');
+      } else {
+        print('Você tem um usuário logado!');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,9 +101,9 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
               ElevatedButton(
-                child: Text('ENTRAR'),
+                child: Text('Entrar'),
                 onPressed: () {    
-                  //login()              
+                  login();         
                 },
                 style: ButtonStyle(
                   minimumSize: MaterialStateProperty.all(Size(130, 50)),
@@ -96,7 +112,7 @@ class _LoginState extends State<Login> {
                 ),
               ),
               ElevatedButton(
-                child: Text('CADASTRAR'),
+                child: Text('Criar conta'),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -122,10 +138,28 @@ class _LoginState extends State<Login> {
       UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
         email: _emailController.text, 
         password: _passwordController.text);
-      
-      
-    }on FirebaseAuthException catch(e){
-
+        if(userCredential != null){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Home(),
+              ) 
+            );
+        }
+    } on FirebaseAuthException catch(e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Usuário não encontrado"),
+          backgroundColor: Colors.redAccent,
+        ),);
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Sua senha incorreta"),
+          backgroundColor: Colors.redAccent,
+        ),
+        );
+      }
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'cadastro.dart';
+import '../Controllers/cadastro.dart';
 import 'home.dart';
-import 'login.dart';
+import '../Controllers/login.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
