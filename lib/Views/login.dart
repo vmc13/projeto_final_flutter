@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'cadastro.dart';
 
@@ -13,6 +14,7 @@ class _LoginState extends State<Login> {
   //controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _firebaseAuth = FirebaseAuth.instance;
 
   bool _showPassword = false;
 
@@ -114,4 +116,16 @@ class _LoginState extends State<Login> {
       )
     ),
   );}
+
+  login() async {
+    try{
+      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: _emailController.text, 
+        password: _passwordController.text);
+      
+      
+    }on FirebaseAuthException catch(e){
+
+    }
+  }
 }
