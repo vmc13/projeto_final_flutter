@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import '../Controllers/cadastro.dart';
 import 'home.dart';
 import '../Controllers/login.dart';
+import 'home/contatos.dart';
+import 'home/extras.dart';
+import 'home/maps.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,8 +25,14 @@ class MyApp extends StatelessWidget {
       routes: {
         '/':(context) => Login(),
         '/cadastro':(context) => Cadastro(),
-        '/home':(context) => Home()
+        '/home':(context) => Home(),
+        '/contatos':(context) => Contatos(),
+        '/maps':(context) => Maps(),
+        '/extras':(context) => Extras(),
       },
     );
   }
+}
+
+class Mapas {
 }
