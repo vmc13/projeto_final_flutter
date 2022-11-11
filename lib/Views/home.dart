@@ -83,7 +83,7 @@ class _HomeState extends State<Home> {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(170, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -96,7 +96,7 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 10,),
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(170, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -117,7 +117,7 @@ class _HomeState extends State<Home> {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(170, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                   SizedBox(height: 10,),
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(170, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
