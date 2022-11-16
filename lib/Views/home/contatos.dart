@@ -24,6 +24,11 @@ class _ContatosState extends State<Contatos> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+               Container(
+                alignment: Alignment.center,
+                    height: 200,
+                    child: Image.asset('images/icon_contato.png'),
+                  ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -42,7 +47,49 @@ class _ContatosState extends State<Contatos> {
               ),
               SizedBox(height: 20),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                Text('DADOS DO CONTATO',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.green,
+                        fontWeight: FontWeight.w600
+                      )),
+              ],),
+              SizedBox(height: 10,),
+              Container(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(30),
+                  child: Column(
+                    children: [
+                      Text('Nome:',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.green,
+                        fontWeight: FontWeight.w600
+                      )),
+                      SizedBox(height: 15),
+                      Text('Email:',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.green,
+                        fontWeight: FontWeight.w600
+                      )),
+                      SizedBox(height: 15),
+                      Text('Local:',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.green,
+                        fontWeight: FontWeight.w600
+                      )),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 100),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
@@ -113,46 +160,6 @@ class _ContatosState extends State<Contatos> {
                       textAlign: TextAlign.center,
                       ),),
                 ],
-              ),
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Text('DADOS DO CONTATO',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-              ],),
-              Container(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.all(30),
-                  child: Column(
-                    children: [
-                      Text('Nome:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                      SizedBox(height: 5),
-                      Text('Email:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                      SizedBox(height: 5),
-                      Text('Local:',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
