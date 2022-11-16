@@ -125,8 +125,8 @@ class _HomeState extends State<Home> {
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                       ),
-                      onPressed: () => Navigator.pushNamed(context, '/extras'),
-                      child: Text('Extra')),
+                      onPressed: () => Navigator.pushNamed(context, '/galeria'),
+                      child: Text('Galeria')),
                   SizedBox(height: 10,),
                   ElevatedButton(
                       style: ButtonStyle(

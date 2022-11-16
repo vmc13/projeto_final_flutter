@@ -1,3 +1,4 @@
+import 'package:final_project/Views/home/galeria.dart';
 import 'package:flutter/material.dart';
 
 import '../Controllers/cadastro.dart';
@@ -26,8 +27,10 @@ class MyApp extends StatelessWidget {
         '/':(context) => Login(),
         '/cadastro':(context) => Cadastro(),
         '/home':(context) => Home(),
+
         '/contatos':(context) => Contatos(),
         '/maps':(context) => Maps(),
+        '/galeria':(context) => Galeria(),
         '/extras':(context) => Extras(),
       },
     );
