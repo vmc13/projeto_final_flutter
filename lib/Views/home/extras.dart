@@ -27,6 +27,7 @@ class _ExtrasState extends State<Extras> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
         title: Text('Extras'),
         centerTitle: true,

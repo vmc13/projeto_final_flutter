@@ -49,6 +49,7 @@ class _MapsState extends State<Maps> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
           title: Text('Google Maps'),
           backgroundColor: Colors.green[150],

@@ -45,11 +45,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
         title: Text('HomePage'),
         centerTitle: true,
       ),
       drawer: Drawer(
+        backgroundColor: Colors.green[100],
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
@@ -70,12 +72,13 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.all(32),
           child: Column(
             children: [
+              
               SizedBox(
                 height: 150,
                 child: Image.asset('images/if_logo.png'),
               ),
               SizedBox(
-                height: 50,
+                height: 80,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -83,7 +86,7 @@ class _HomeState extends State<Home> {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 130)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -92,11 +95,17 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(10))),
                       ),
                       onPressed: () => Navigator.pushNamed(context, '/contatos'),
-                      child: Text('Contatos')),
+                      child: Column(
+                        children: [
+                          Text('Contatos'),
+                          SizedBox(height: 10),
+                          Icon(Icons.person)
+                        ],
+                      )),
                   SizedBox(height: 10,),
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 130)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -105,7 +114,13 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(10))),
                       ),
                       onPressed: () => Navigator.pushNamed(context, '/maps'),
-                      child: Text('Mapas'))
+                      child: Column(
+                        children: [
+                          Text('Mapas'),
+                          SizedBox(height: 10),
+                          Icon(Icons.map_outlined)
+                        ],
+                      ))
                 ],
               ),
               SizedBox(
@@ -117,7 +132,7 @@ class _HomeState extends State<Home> {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 130)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -126,11 +141,17 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(10))),
                       ),
                       onPressed: () => Navigator.pushNamed(context, '/galeria'),
-                      child: Text('Galeria')),
+                      child: Column(
+                        children: [
+                          Text('Galeria'),
+                          SizedBox(height: 10),
+                          Icon(Icons.photo_library_outlined)
+                        ],
+                      )),
                   SizedBox(height: 10,),
                   ElevatedButton(
                       style: ButtonStyle(
-                        minimumSize: MaterialStateProperty.all(Size(160, 150)),
+                        minimumSize: MaterialStateProperty.all(Size(160, 130)),
                         textStyle: MaterialStateProperty.all(TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
@@ -139,26 +160,34 @@ class _HomeState extends State<Home> {
                             borderRadius: BorderRadius.circular(10))),
                       ),
                       onPressed: () => Navigator.pushNamed(context, '/extras'),
-                      child: Text('Extra'))
+                      child: Column(
+                        children: [
+                          Text('Extras'),
+                          SizedBox(height: 10),
+                          Icon(Icons.link)
+                        ],
+                      )),
                 ],
-              )
+              ),
             ],
+            
           ),
         ),
       ),
         bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Equipe',
-          ),
-        ],
-        selectedItemColor: Colors.green,
-        currentIndex: _selectedIndex,
+          backgroundColor: Colors.green[300],
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Equipe',
+            ),
+          ],
+          selectedItemColor: Colors.green[50],
+          currentIndex: _selectedIndex,
       ),
     );
   }

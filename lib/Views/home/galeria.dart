@@ -11,6 +11,7 @@ class _GaleriaState extends State<Galeria> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
         title: Text('Galeria da turma!'),
         centerTitle: true,

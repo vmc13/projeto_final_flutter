@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/Controllers/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../Views/home.dart';
+import '../database/usuarios.dart';
+
 
 class Cadastro extends StatefulWidget {
   const Cadastro({super.key});
@@ -12,14 +14,26 @@ class Cadastro extends StatefulWidget {
 }
 
 class _CadastroState extends State<Cadastro> {
+
+  // CONTROLLERS
   final _nomeController = TextEditingController();
   final _emailController = TextEditingController();
   final _psController = TextEditingController();
-
+  final _phoneController = TextEditingController();
   final _latitudeController = TextEditingController();
   final _longitudeController = TextEditingController();
 
+  // CONEXÕES COM O FIREBASE
   final _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  // MÉTODO PARA SALVAR DADOS
+  Future<void> _saveNome(String valor) async {
+
+   await _firestore.collection('nomes').add({
+      'valor': valor,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +105,16 @@ class _CadastroState extends State<Cadastro> {
                     label: Text('Longitude'),
                     hintText: 'Digite sua longitude',
                     prefixIcon: Icon(Icons.location_pin))),
+              SizedBox(
+              height: 10,),
+            TextFormField(
+                controller: _phoneController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                    label: Text('Telefone'),
+                    hintText: 'Digite seu telefone',
+                    prefixIcon: Icon(Icons.phone))),
             SizedBox(
               height: 40,
             ),
@@ -98,6 +122,9 @@ class _CadastroState extends State<Cadastro> {
             ElevatedButton(
               onPressed: () {
                 cadastrar();
+                final name = _nomeController.text;
+
+                createUser(name: name);
               },
               child: Text('CADASTRAR'),
               style: ButtonStyle(
@@ -112,6 +139,26 @@ class _CadastroState extends State<Cadastro> {
       ),
     );
   }
+
+
+
+Future createUser({required String name}) async {
+  // Reference to document
+  final docUser = FirebaseFirestore.instance.collection('usuarios').doc();
+
+  final user = Usuario (
+    id: docUser.id,
+    nome: name,
+    email: _emailController.text,
+    latitude: _latitudeController.text,
+    longitude: _longitudeController.text,
+    telefone: _phoneController.text
+  );
+  final json = user.toJson();
+  // Create document and write data to firebase
+  await docUser.set(json);
+}
+
 
  cadastrar() async {
     try {

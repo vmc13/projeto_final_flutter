@@ -1,6 +1,10 @@
+import 'package:final_project/database/usuarios.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-const List<String> list = <String>['Contato 1', 'Contato 2', 'Contato 3', 'Contato 4'];
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_project/Controllers/cadastro.dart';
 
 class Contatos extends StatefulWidget {
   const Contatos({super.key});
@@ -13,197 +17,35 @@ class _ContatosState extends State<Contatos> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green[50],
       appBar: AppBar(
         title: Text('Contatos'),
         centerTitle: true,
       ),
-      body: Container(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-               Container(
-                alignment: Alignment.center,
-                    height: 200,
-                    child: Image.asset('images/icon_contato.png'),
-                  ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      padding: EdgeInsets.fromLTRB(10, 20,10, 20),
-                      child: Text('SELECIONE O CONTATO',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                    ),
-                  SizedBox(height: 20),
-                  ContatosDropdown(),
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Text('DADOS DO CONTATO',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-              ],),
-              SizedBox(height: 10,),
-              Container(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.all(30),
-                  child: Column(
-                    children: [
-                      Text('Nome:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                      SizedBox(height: 15),
-                      Text('Email:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                      SizedBox(height: 15),
-                      Text('Local:',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.green,
-                        fontWeight: FontWeight.w600
-                      )),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 100),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(150, 50)),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      )),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                    ),
-                    onPressed: () => {},
-                    child: Text(
-                      'Listar\ncontato',
-                      textAlign: TextAlign.center,
-                    ),),
-                  SizedBox(height: 50),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(150, 50)),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      )),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                    ),
-                    onPressed: () => {},
-                    child: Text(
-                      'Cadastrar\ncontato',
-                      textAlign: TextAlign.center,
-                      ),),
-                ],
-              ),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(150, 50)),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      )),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                    ),
-                    onPressed: () => {},
-                    child: Text(
-                      'Alterar\ncontato',
-                      textAlign: TextAlign.center,
-                      ),),
-                  SizedBox(height: 50),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(Size(150, 50)),
-                      textStyle: MaterialStateProperty.all(TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      )),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                    ),
-                    onPressed: () => {},
-                    child: Text(
-                      'Excluir\ncontato',
-                      textAlign: TextAlign.center,
-                      ),),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: StreamBuilder<List<Usuario>> (
+        stream: readUsers(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Text('Something went wrong! ${snapshot.error}');
+          } else if (snapshot.hasData){
+            final usuarios = snapshot.data!;
+
+            return ListView(
+              children: usuarios.map(buildUsuario).toList(),
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        }),
     );
   }
 }
 
-//DROPDOWN
+Widget buildUsuario(Usuario usuario) => ListTile(
+  leading: CircleAvatar(child: Image.asset('images/contact_profile.png')),
+  title: Text((usuario.nome)),
+  subtitle: Text(usuario.telefone),
+  tileColor: Colors.green[100],
+);
 
-class ContatosDropdown extends StatefulWidget {
-  const ContatosDropdown({super.key});
-
-  @override
-  State<ContatosDropdown> createState() => _ContatosDropdownState();
-}
-
-class _ContatosDropdownState extends State<ContatosDropdown> {
-  String dropdownValue = list.first;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.green),
-      underline: Container(
-        height: 2,
-        color: Colors.green,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item.
-        setState(() {
-          dropdownValue = value!;
-        });
-      },
-      items: list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    );
-  }
-}
+Stream<List<Usuario>> readUsers() => FirebaseFirestore.instance.collection('usuarios').snapshots().map((snapshot) => snapshot.docs.map((doc) => Usuario.fromJson(doc.data())).toList());
