@@ -59,9 +59,11 @@ class _HomeState extends State<Home> {
               accountEmail: Text(email),
             ),
             ListTile(
+              onTap: () => Navigator.pushNamed(context, '/'),
               dense: true,
               title: Text('Sair'),
               trailing: Icon(Icons.exit_to_app),
+              
             )
           ],
         ),

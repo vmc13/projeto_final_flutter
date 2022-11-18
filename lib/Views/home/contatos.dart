@@ -14,10 +14,38 @@ class Contatos extends StatefulWidget {
 }
 
 class _ContatosState extends State<Contatos> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Settings',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.green[50],
+      backgroundColor: Colors.green[100],
       appBar: AppBar(
         title: Text('Contatos'),
         centerTitle: true,
@@ -36,7 +64,35 @@ class _ContatosState extends State<Contatos> {
           } else {
             return Center(child: CircularProgressIndicator());
           }
-        }),
+        }
+        ),
+       bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_add_alt),
+            label: 'Adicionar',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.change_circle),
+            label: 'Alterar',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.delete),
+            label: 'Deletar',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
+            backgroundColor: Colors.green,
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green[50],
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

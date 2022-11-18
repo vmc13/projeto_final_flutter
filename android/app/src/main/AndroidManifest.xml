@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.final_project">
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
    <application
         android:label="final_project"
         android:name="${applicationName}"
@@ -33,4 +34,17 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDanrIe7ET0EsmyjeJWQ7UaUnO7XKl5hmU"/>
     </application>
+    
+    <queries>
+    <!-- If your app checks for SMS support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="sms" />
+    </intent>
+    <!-- If your app checks for call support -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="tel" />
+    </intent>
+    </queries>
 </manifest>

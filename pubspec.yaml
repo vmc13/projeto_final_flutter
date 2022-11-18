@@ -23,6 +23,9 @@ dependencies:
   firebase_auth: ^4.1.1
   cloud_firestore: ^4.0.4
   provider: ^6.0.4
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.6
+  url_launcher: ^6.1.6
 
   
 
@@ -53,6 +56,12 @@ flutter:
     - images/if_logo.png
     - images/icon_contato.png
     - images/contact_profile.png
+
+    - images/gallery/carousel1.jpeg
+    - images/gallery/carousel2.jpeg
+    - images/gallery/carousel3.jpeg
+    - images/gallery/carousel4.jpeg
+    - images/gallery/carousel5.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
