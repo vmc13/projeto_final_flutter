@@ -34,6 +34,11 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDanrIe7ET0EsmyjeJWQ7UaUnO7XKl5hmU"/>
     </application>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     
     <queries>
     <!-- If your app checks for SMS support -->
