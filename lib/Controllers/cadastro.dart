@@ -154,6 +154,7 @@ Future createUser({required String name}) async {
     longitude: _longitudeController.text,
     telefone: _phoneController.text
   );
+  
   final json = user.toJson();
   // Create document and write data to firebase
   await docUser.set(json);

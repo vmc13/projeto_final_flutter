@@ -32,4 +32,6 @@ class Usuario{
     longitude: json['longitude'],
     telefone: json['telefone']
   );
+
+  
 }
