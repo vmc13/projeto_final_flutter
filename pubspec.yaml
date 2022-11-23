@@ -25,10 +25,7 @@ dependencies:
   provider: ^6.0.4
   image_picker: ^0.8.6
   firebase_storage: ^11.0.6
-  location: ^4.4.0
-  syncfusion_flutter_maps: ^20.3.57
   geolocator: ^9.0.2
-  geocoding: ^2.0.5
 
   
 
