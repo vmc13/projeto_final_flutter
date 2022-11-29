@@ -7,6 +7,7 @@ import '../Controllers/login.dart';
 import 'home/contatos.dart';
 import 'home/extras.dart';
 import 'home/maps.dart';
+import 'home/photo_library.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/maps':(context) => Maps(),
         '/galeria':(context) => Galeria(),
         '/extras':(context) => Extras(),
+        '/library': (context) => Library(),
       },
     );
   }
