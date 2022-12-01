@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -11,36 +13,21 @@ class Maps extends StatefulWidget {
 }
 
 class _MapsState extends State<Maps> {
-  late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(-5.088981127065633, -42.81137583742514);
+  Completer<GoogleMapController> _controller = Completer();
 
-  Set<Marker> _marcadores = {};
+  static final CameraPosition _center = CameraPosition(
+    target: LatLng(-5.088981127065633, -42.81137583742514),
+    zoom: 14.4746,
+  );
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+    //GOING TO IFPI
+  static final CameraPosition _ifpi = CameraPosition(
+    bearing: 192.8334901395799,
+    target: LatLng(-5.088981127065633, -42.81137583742514),
+    tilt: 59.440717697143555,
+    zoom: 19.151926040649414);
 
-  _carregarMarcadores() {
-    Set<Marker> marcadoresLocal = {};
-
-    Marker marcadoIfpi = Marker(
-      markerId: MarkerId('IFPI'),
-      position: LatLng(-5.088981127065633, -42.81137583742514),
-      infoWindow: InfoWindow(title: 'IFPI'),
-    );
-    Marker marcadoIfpiSul = Marker(
-      markerId: MarkerId('IFPI_SUL'),
-      position: LatLng(-5.1022787040728135, -42.813025869811),
-      infoWindow: InfoWindow(title: 'IFPI-SUL'),
-    );
-
-    marcadoresLocal.add(marcadoIfpi);
-    marcadoresLocal.add(marcadoIfpiSul);
-    setState(() {
-      _marcadores = marcadoresLocal;
-    });
-  }
 
   _localizacaoAtual() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -84,21 +71,26 @@ class _MapsState extends State<Maps> {
   }
 
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Google Maps'),
+          centerTitle: true,
           backgroundColor: Colors.green[150],
         ),
-        body: GoogleMap(
-          myLocationButtonEnabled: true,
-          mapType: MapType.normal,
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(target: _center, zoom: 14.0),
-          markers: _marcadores,
-        ),
+      body: GoogleMap(
+        myLocationButtonEnabled: true,
+        mapType: MapType.hybrid,
+        onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+        },
+        initialCameraPosition: _ifpi,
       ),
     );
+  }
+
+   Future<void> _goToIfpi() async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(_ifpi));
   }
 }
 
