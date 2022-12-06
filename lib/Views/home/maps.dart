@@ -14,6 +14,8 @@ class Maps extends StatefulWidget {
 
 class _MapsState extends State<Maps> {
 
+  Set<Marker> _marcadores = {};
+
   Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _center = CameraPosition(
@@ -33,6 +35,27 @@ class _MapsState extends State<Maps> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     print('Localização' + position.toString());
+  }
+
+  _carregarMarcadores() {
+    Set<Marker> marcadoresLocal = {};
+
+    Marker marcadoIfpi = Marker(
+      markerId: MarkerId('IFPI'),
+      position: LatLng(-5.088981127065633, -42.81137583742514),
+      infoWindow: InfoWindow(title: 'IFPI'),
+    );
+    Marker marcadoIfpiSul = Marker(
+      markerId: MarkerId('IFPI_SUL'),
+      position: LatLng(-5.1022787040728135, -42.813025869811),
+      infoWindow: InfoWindow(title: 'IFPI-SUL'),
+    );
+
+    marcadoresLocal.add(marcadoIfpi);
+    marcadoresLocal.add(marcadoIfpiSul);
+    setState(() {
+      _marcadores = marcadoresLocal;
+    });
   }
 
   Future<Position> _determinePosition() async {
@@ -65,7 +88,7 @@ class _MapsState extends State<Maps> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    //_carregarMarcadores();
+    _carregarMarcadores();
     // _localizacaoAtual();
     _determinePosition();
   }
@@ -84,6 +107,7 @@ class _MapsState extends State<Maps> {
         _controller.complete(controller);
         },
         initialCameraPosition: _ifpi,
+        markers: _marcadores,
       ),
     );
   }

@@ -36,22 +36,24 @@ class Galeria extends StatelessWidget {
             List<Map> items = documents.map((e) => e.data() as Map).toList();
 
             //Display the list
-            return ListView.builder(
+            return GridView.builder(
+                gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 10,
+                  ),
                 itemCount: items.length,
                 itemBuilder: (BuildContext context, int index) {
                   //Get the item at this index
                   Map thisItem = items[index];
-                  //REturn the widget for the list items
-                  return ListTile(
-                    leading: Container(
-                      height: 100,
-                      width: 100,
-                      child: thisItem.containsKey('image') ? Image.network(
+                  //Return the widget for the list items
+                  return Container(
+                    child: thisItem.containsKey('image') ? Image.network(
                           '${thisItem['image']}') : Container(),
-                    ),
-                    onTap: () {},
                   );
-                });
+                },
+              );
           }
 
           //Show loader
